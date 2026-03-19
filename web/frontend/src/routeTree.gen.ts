@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ModelsRouteImport } from './routes/models'
 import { Route as LogsRouteImport } from './routes/logs'
+import { Route as InteractRouteImport } from './routes/interact'
 import { Route as CredentialsRouteImport } from './routes/credentials'
 import { Route as ConfigRouteImport } from './routes/config'
+import { Route as BackendUrlRouteImport } from './routes/backend-url'
 import { Route as AgentRouteImport } from './routes/agent'
 import { Route as ChannelsRouteRouteImport } from './routes/channels/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,6 +33,11 @@ const LogsRoute = LogsRouteImport.update({
   path: '/logs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InteractRoute = InteractRouteImport.update({
+  id: '/interact',
+  path: '/interact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CredentialsRoute = CredentialsRouteImport.update({
   id: '/credentials',
   path: '/credentials',
@@ -39,6 +46,11 @@ const CredentialsRoute = CredentialsRouteImport.update({
 const ConfigRoute = ConfigRouteImport.update({
   id: '/config',
   path: '/config',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BackendUrlRoute = BackendUrlRouteImport.update({
+  id: '/backend-url',
+  path: '/backend-url',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgentRoute = AgentRouteImport.update({
@@ -81,8 +93,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/channels': typeof ChannelsRouteRouteWithChildren
   '/agent': typeof AgentRouteWithChildren
+  '/backend-url': typeof BackendUrlRoute
   '/config': typeof ConfigRouteWithChildren
   '/credentials': typeof CredentialsRoute
+  '/interact': typeof InteractRoute
   '/logs': typeof LogsRoute
   '/models': typeof ModelsRoute
   '/agent/skills': typeof AgentSkillsRoute
@@ -94,8 +108,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/channels': typeof ChannelsRouteRouteWithChildren
   '/agent': typeof AgentRouteWithChildren
+  '/backend-url': typeof BackendUrlRoute
   '/config': typeof ConfigRouteWithChildren
   '/credentials': typeof CredentialsRoute
+  '/interact': typeof InteractRoute
   '/logs': typeof LogsRoute
   '/models': typeof ModelsRoute
   '/agent/skills': typeof AgentSkillsRoute
@@ -108,8 +124,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/channels': typeof ChannelsRouteRouteWithChildren
   '/agent': typeof AgentRouteWithChildren
+  '/backend-url': typeof BackendUrlRoute
   '/config': typeof ConfigRouteWithChildren
   '/credentials': typeof CredentialsRoute
+  '/interact': typeof InteractRoute
   '/logs': typeof LogsRoute
   '/models': typeof ModelsRoute
   '/agent/skills': typeof AgentSkillsRoute
@@ -123,8 +141,10 @@ export interface FileRouteTypes {
     | '/'
     | '/channels'
     | '/agent'
+    | '/backend-url'
     | '/config'
     | '/credentials'
+    | '/interact'
     | '/logs'
     | '/models'
     | '/agent/skills'
@@ -136,8 +156,10 @@ export interface FileRouteTypes {
     | '/'
     | '/channels'
     | '/agent'
+    | '/backend-url'
     | '/config'
     | '/credentials'
+    | '/interact'
     | '/logs'
     | '/models'
     | '/agent/skills'
@@ -149,8 +171,10 @@ export interface FileRouteTypes {
     | '/'
     | '/channels'
     | '/agent'
+    | '/backend-url'
     | '/config'
     | '/credentials'
+    | '/interact'
     | '/logs'
     | '/models'
     | '/agent/skills'
@@ -163,8 +187,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChannelsRouteRoute: typeof ChannelsRouteRouteWithChildren
   AgentRoute: typeof AgentRouteWithChildren
+  BackendUrlRoute: typeof BackendUrlRoute
   ConfigRoute: typeof ConfigRouteWithChildren
   CredentialsRoute: typeof CredentialsRoute
+  InteractRoute: typeof InteractRoute
   LogsRoute: typeof LogsRoute
   ModelsRoute: typeof ModelsRoute
 }
@@ -185,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LogsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/interact': {
+      id: '/interact'
+      path: '/interact'
+      fullPath: '/interact'
+      preLoaderRoute: typeof InteractRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/credentials': {
       id: '/credentials'
       path: '/credentials'
@@ -197,6 +230,13 @@ declare module '@tanstack/react-router' {
       path: '/config'
       fullPath: '/config'
       preLoaderRoute: typeof ConfigRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/backend-url': {
+      id: '/backend-url'
+      path: '/backend-url'
+      fullPath: '/backend-url'
+      preLoaderRoute: typeof BackendUrlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agent': {
@@ -290,8 +330,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChannelsRouteRoute: ChannelsRouteRouteWithChildren,
   AgentRoute: AgentRouteWithChildren,
+  BackendUrlRoute: BackendUrlRoute,
   ConfigRoute: ConfigRouteWithChildren,
   CredentialsRoute: CredentialsRoute,
+  InteractRoute: InteractRoute,
   LogsRoute: LogsRoute,
   ModelsRoute: ModelsRoute,
 }

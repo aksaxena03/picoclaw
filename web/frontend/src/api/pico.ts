@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/lib/api-config"
+
 // API client for Pico Channel configuration.
 
 interface PicoTokenResponse {
@@ -13,7 +15,7 @@ interface PicoSetupResponse {
   changed: boolean
 }
 
-const BASE_URL = ""
+const BASE_URL = getBaseUrl()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, options)

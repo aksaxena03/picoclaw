@@ -35,7 +35,9 @@ export function ModelSelector({
         size="sm"
         className="text-muted-foreground hover:text-foreground focus-visible:border-input h-8 max-w-[160px] min-w-[80px] bg-transparent shadow-none focus-visible:ring-0 sm:max-w-[220px]"
       >
-        <SelectValue placeholder={t("chat.noModel")} />
+        <span className="max-w-[120px] truncate sm:max-w-[180px]">
+          <SelectValue placeholder={t("chat.noModel")} />
+        </span>
       </SelectTrigger>
       <SelectContent position="popper" align="start">
         {apiKeyModels.length > 0 && (

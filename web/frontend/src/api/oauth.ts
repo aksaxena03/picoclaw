@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/lib/api-config"
+
 export type OAuthProvider = "openai" | "anthropic" | "google-antigravity"
 export type OAuthMethod = "browser" | "device_code" | "token"
 
@@ -48,7 +50,7 @@ interface OAuthProvidersResponse {
   providers: OAuthProviderStatus[]
 }
 
-const BASE_URL = ""
+const BASE_URL = getBaseUrl()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, options)

@@ -20,7 +20,7 @@ export function PageHeader({
   return (
     <div
       className={cn(
-        "z-40 flex h-14 shrink-0 items-center justify-between px-6 pt-2",
+        "z-40 flex h-auto min-h-14 shrink-0 flex-wrap items-center justify-between gap-y-2 px-4 py-2 md:px-6",
         className,
       )}
     >

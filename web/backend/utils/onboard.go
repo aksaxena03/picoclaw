@@ -5,8 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-
-	"github.com/sipeed/picoclaw/pkg/config"
 )
 
 var execCommand = exec.Command
@@ -21,7 +19,7 @@ func EnsureOnboarded(configPath string) error {
 	}
 
 	cmd := execCommand(FindPicoclawBinary(), "onboard")
-	cmd.Env = append(os.Environ(), config.EnvConfig+"="+configPath)
+	cmd.Env = append(os.Environ(), "PICOCLAW_CONFIG="+configPath)
 	cmd.Stdin = strings.NewReader("n\n")
 
 	output, err := cmd.CombinedOutput()

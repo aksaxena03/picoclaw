@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/lib/api-config"
+
 // API client for gateway process management.
 
 interface GatewayStatusResponse {
@@ -24,7 +26,7 @@ interface GatewayActionResponse {
   log_run_id?: number
 }
 
-const BASE_URL = ""
+const BASE_URL = getBaseUrl()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, options)

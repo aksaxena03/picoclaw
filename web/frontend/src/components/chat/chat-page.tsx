@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { useChatModels } from "@/hooks/use-chat-models"
 import { useGateway } from "@/hooks/use-gateway"
 import { usePicoChat } from "@/hooks/use-pico-chat"
+import { usePicoVoice } from "@/hooks/use-pico-voice"
 import { useSessionHistory } from "@/hooks/use-session-history"
 
 export function ChatPage() {
@@ -36,6 +37,13 @@ export function ChatPage() {
   const { state: gwState } = useGateway()
   const isGatewayRunning = gwState === "running"
   const isChatConnected = connectionState === "connected"
+
+  const { isVoiceEnabled, toggleVoice, isMuted, toggleMute, isVoiceSupported } =
+    usePicoVoice({
+      messages,
+      sendMessage,
+      connectionState,
+    })
 
   const {
     defaultModelName,
@@ -169,6 +177,11 @@ export function ChatPage() {
         onSend={handleSend}
         isConnected={isChatConnected}
         hasDefaultModel={Boolean(defaultModelName)}
+        isVoiceEnabled={isVoiceEnabled}
+        onToggleVoice={toggleVoice}
+        isVoiceSupported={isVoiceSupported}
+        isMuted={isMuted}
+        onToggleMute={toggleMute}
       />
     </div>
   )

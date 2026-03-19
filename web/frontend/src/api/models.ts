@@ -1,3 +1,4 @@
+import { getBaseUrl } from "@/lib/api-config"
 import { refreshGatewayState } from "@/store/gateway"
 
 // API client for model list management.
@@ -34,7 +35,7 @@ interface ModelActionResponse {
   default_model?: string
 }
 
-const BASE_URL = ""
+const BASE_URL = getBaseUrl()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, options)

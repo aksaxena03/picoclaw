@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/lib/api-config"
+
 export interface AutoStartStatus {
   enabled: boolean
   supported: boolean
@@ -12,7 +14,7 @@ export interface LauncherConfig {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(path, options)
+  const res = await fetch(`${getBaseUrl()}${path}`, options)
   if (!res.ok) {
     let message = `API error: ${res.status} ${res.statusText}`
     try {

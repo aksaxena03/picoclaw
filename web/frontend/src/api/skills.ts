@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/lib/api-config"
+
 export interface SkillSupportItem {
   name: string
   path: string
@@ -22,7 +24,7 @@ interface SkillActionResponse {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(path, options)
+  const res = await fetch(`${getBaseUrl()}${path}`, options)
   if (!res.ok) {
     throw new Error(await extractErrorMessage(res))
   }
@@ -41,7 +43,7 @@ export async function importSkill(file: File): Promise<SkillActionResponse> {
   const formData = new FormData()
   formData.set("file", file)
 
-  const res = await fetch("/api/skills/import", {
+  const res = await fetch(`${getBaseUrl()}/api/skills/import`, {
     method: "POST",
     body: formData,
   })

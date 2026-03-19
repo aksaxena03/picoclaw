@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/lib/api-config"
+
 // API client for channels navigation and channel-specific config flows.
 
 export type ChannelConfig = Record<string, unknown>
@@ -19,7 +21,7 @@ interface ConfigActionResponse {
   errors?: string[]
 }
 
-const BASE_URL = ""
+const BASE_URL = getBaseUrl()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, options)

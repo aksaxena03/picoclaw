@@ -1,4 +1,10 @@
-import { IconArrowUp } from "@tabler/icons-react"
+import {
+  IconArrowUp,
+  IconMicrophone,
+  IconMicrophoneOff,
+  IconVolume,
+  IconVolumeOff,
+} from "@tabler/icons-react"
 import type { KeyboardEvent } from "react"
 import { useTranslation } from "react-i18next"
 import TextareaAutosize from "react-textarea-autosize"
@@ -12,6 +18,11 @@ interface ChatComposerProps {
   onSend: () => void
   isConnected: boolean
   hasDefaultModel: boolean
+  isVoiceEnabled?: boolean
+  onToggleVoice?: () => void
+  isVoiceSupported?: boolean
+  isMuted?: boolean
+  onToggleMute?: () => void
 }
 
 export function ChatComposer({
@@ -20,6 +31,11 @@ export function ChatComposer({
   onSend,
   isConnected,
   hasDefaultModel,
+  isVoiceEnabled,
+  onToggleVoice,
+  isVoiceSupported,
+  isMuted,
+  onToggleMute,
 }: ChatComposerProps) {
   const { t } = useTranslation()
   const canInput = isConnected && hasDefaultModel
@@ -39,7 +55,11 @@ export function ChatComposer({
           value={input}
           onChange={(e) => onInputChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={t("chat.placeholder")}
+          placeholder={
+            isVoiceEnabled
+              ? "Listening... (speak your command)"
+              : t("chat.placeholder")
+          }
           disabled={!canInput}
           className={cn(
             "placeholder:text-muted-foreground max-h-[200px] min-h-[60px] resize-none border-0 bg-transparent px-2 py-1 text-[15px] shadow-none transition-colors focus-visible:ring-0 focus-visible:outline-none dark:bg-transparent",
@@ -50,7 +70,54 @@ export function ChatComposer({
         />
 
         <div className="mt-2 flex items-center justify-between px-1">
-          <div className="flex items-center gap-1">{/* action buttons */}</div>
+          <div className="flex items-center gap-1">
+            {isVoiceSupported && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onToggleVoice}
+                  className={cn(
+                    "size-8 rounded-full transition-colors",
+                    isVoiceEnabled
+                      ? "text-destructive hover:text-destructive hover:bg-destructive/10"
+                      : "text-muted-foreground",
+                  )}
+                  title={
+                    isVoiceEnabled
+                      ? "Disable Voice Input"
+                      : "Enable Voice Input"
+                  }
+                >
+                  {isVoiceEnabled ? (
+                    <IconMicrophoneOff className="size-4" />
+                  ) : (
+                    <IconMicrophone className="size-4" />
+                  )}
+                </Button>
+
+                {isVoiceEnabled && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={onToggleMute}
+                    className="text-muted-foreground hover:text-foreground size-8 rounded-full transition-colors"
+                    title={
+                      isMuted
+                        ? "Unmute Assistant Voice"
+                        : "Mute Assistant Voice"
+                    }
+                  >
+                    {isMuted ? (
+                      <IconVolumeOff className="size-4" />
+                    ) : (
+                      <IconVolume className="size-4" />
+                    )}
+                  </Button>
+                )}
+              </>
+            )}
+          </div>
 
           <Button
             size="icon"
